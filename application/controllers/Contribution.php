@@ -13,6 +13,10 @@ class Contribution extends MY_Controller {
         $this->load->model('Es_Group_model');
         $this->load->model('Es_Group_Invite');
         $this->load->model('Es_Group_Members');
+        $this->load->model('Es_Group_Wallet');
+        $this->load->model('Es_Member_Wallet');
+        $this->load->model('BankDetail_model');
+        
         $this->userdetails = $this->GetDetails();
 
         if ($this->userdetails['id'] > 0) {
@@ -78,6 +82,7 @@ class Contribution extends MY_Controller {
                 if (is_numeric($amt)) {
                     $grpid = $this->Es_Group_model->new_group($name, $amt, $total, $freq, $this->userdetails['id']);
                     if (is_numeric($grpid)) {
+//                        add to group wallet
                         redirect("Contribution/GroupDetails/{$grpid}");
                     }
                 }
@@ -120,6 +125,7 @@ class Contribution extends MY_Controller {
                 } else {
 //                    add to group member
                     $res = $this->Es_Group_Members->new_member($grpid, $this->userdetails['id']);
+//                    add to member wallet
                     $repx = $this->Es_Group_Invite->delete_invite($this->userdetails['id'], $grpid);
                     if ($repx) {
                         $this->session->set_userdata('accp', 1);
@@ -190,6 +196,26 @@ class Contribution extends MY_Controller {
                 redirect("Contribution/GroupDetails/{$grpid}");
             }
         }
+    }
+    
+    public function Withdrawals() {
+        
+        $this->body = "esusu/es_withdrawals";
+        $this->ShowView($this->type);
+    }
+    public function BankDetail() {
+//        get the bank detail of the current member
+        
+        
+        $bank = $this->BankDetail_model->get_bank($this->userdetails['id']);
+        $this->data['newbank']=1;
+        if(is_array($bank)){
+            $this->data['bankdet']=$bank;
+            $this->data['newbank']=2;
+        }
+        
+        $this->body = "esusu/bankdetail";
+        $this->ShowView($this->type);
     }
 
 }

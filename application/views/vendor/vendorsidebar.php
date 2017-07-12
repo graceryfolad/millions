@@ -67,8 +67,8 @@
             <ul class="d-menu stick bg-green" data-role="dropdown">
                 <li><a href="<?php echo site_url('/Contribution/index'); ?>"><span class="mif-shop icon"></span>Contribution Overview</a></li>
                 <li><a href="<?php echo site_url('/Contribution/Purchases'); ?>"><span class="mif-cart icon"></span>My Contribution</a></li>
-                <li><a href="<?php echo site_url('/Contribution/Reports'); ?>"><span class="mif-chart-bars2 icon" ></span>Contribution Report</a></li>
-                
+                <li><a href="<?php echo site_url('/Contribution/Withdrawals'); ?>"><span class="mif-chart-bars2 icon" ></span>Withdrawals</a></li>
+                <li><a href="<?php echo site_url('/Contribution/BankDetail'); ?>"><span class="mif-chart-bars2 icon" ></span>Bank Details</a></li>
 
             </ul>
         </li>
